@@ -35,9 +35,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="1" 
-              Grid.Row="1" 
+              Grid.Row="1"             
               Background="#FFCFCFCF">
-            <ContentControl Content="{Binding CurrentViewModel}" Grid.RowSpan="2">
+            <ContentControl Content="{Binding CurrentViewModel}" 
+                            x:Name="ccc"
+                            Grid.RowSpan="2">
                 <ContentControl.Resources>                    
                     <DataTemplate DataType="{x:Type viewmodels:MaintModeVM}">
                         <views:Maint_mode />

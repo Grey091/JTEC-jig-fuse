@@ -272,7 +272,7 @@
                             <StackPanel VerticalAlignment="Bottom" 
                                         Margin="0 0 0 5">
                                 <Button Content="LOG EVENT" 
-                                       Command="{Binding LoadDataToJig}"
+                                       
                                         Margin="10 0" 
                                         FontFamily="Champagne &amp;imousines"
                                         Background="#FF340051"
@@ -309,7 +309,21 @@
                                                          VerticalAlignment="Top"
                                                          Height="70">
                                 </MetroChart:RadialGaugeChart>
-                               
+                                <TextBlock Text="     NHẤN 'F1' để mở Inspection"
+                                           Foreground="White"></TextBlock>
+                                <TextBlock/>
+                                <TextBlock Text="     NHẤN 'F2' để mở User"
+                                           Foreground="White"></TextBlock>
+                                <TextBlock/>
+                                <TextBlock Text="     NHẤN 'F3' để mở Productions"
+                                           Foreground="White"></TextBlock>
+                                <TextBlock/>
+                                <TextBlock Text="     NHẤN 'Enter' để Load chương trình"
+                                           Foreground="White"></TextBlock>
+                                <TextBlock/>
+                                <TextBlock Text="     NHẤN 'Space' để thực hiện Update"
+                                           Foreground="White"></TextBlock>
+                                <TextBlock/>
                             </StackPanel>
                           
                         </Grid>

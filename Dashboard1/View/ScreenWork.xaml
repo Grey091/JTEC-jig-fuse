@@ -13,7 +13,11 @@
              xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"             
              d:DesignHeight="750"
              d:DesignWidth="824">
-    
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding LoadDataToJig}"
+                    Key="Enter">            
+        </KeyBinding>
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <model:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
