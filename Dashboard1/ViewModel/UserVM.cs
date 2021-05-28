@@ -15,8 +15,7 @@ using System.Windows.Input;
 namespace Dashboard1.ViewModel
 {
     public class UserVM : BaseVM
-    {
-        public ICommand LoadDataToJig { get; set; }
+    {        
         private string _Mess1;
         public string Mess1
         {
@@ -28,10 +27,7 @@ namespace Dashboard1.ViewModel
         }
         public UserVM()
         {
-            LoadDataToJig = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                Mess1 = "ádsadasdasfdasfsa";
-            });
+            
         }
        
     }

@@ -13,7 +13,11 @@
              xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"             
              d:DesignHeight="750"
              d:DesignWidth="824">
-    
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding LoadDataToJig}"
+                    Key="Enter">            
+        </KeyBinding>
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <model:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
@@ -304,16 +308,25 @@
                                        Height="40"></TextBox>
                             </materialDesign:Card>
                         </StackPanel>
-                        <StackPanel Grid.Row="1">
-                            
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal">
+                            <StackPanel>
+                                <Label Content="Mã JIG :" Foreground="White" FontSize="20" Margin="20 20"/>
+                                <TextBox Margin="20 0" Background="White" Foreground="Black" FontSize="25" Width="280"
+                                         Text="{Binding codeJig}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label Content="Mã sản phẩm :" Foreground="White" FontSize="20" Margin="20 20"/>
+                                <TextBox Margin="20 0" Background="White" Foreground="Black" FontSize="25" Width="280"
+                                         Text="{Binding codeProduct}"/>
+                            </StackPanel>
                         </StackPanel>
 
                         <Button FontSize="25" Grid.Row="2"
                                 FocusManager.FocusedElement="{Binding ElementName=QRtxt}"
                                 Command="{Binding LoadDataToJig}"
                                 Style="{StaticResource MaterialDesignRaisedButton}"                   
-                                materialDesign:ButtonProgressAssist.Value="{Binding DismissButtonProgress}"  
-                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="False"                                
+                                IsEnabled = "{Binding DismissButtonProgress}"                                                             
                                 Margin="413,119.2,10,10.4" Height="40" Width="227">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock><Run Text="LOAD"/></TextBlock>

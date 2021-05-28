@@ -11,8 +11,12 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
              d:DesignHeight="750" d:DesignWidth="824">
-
-    <Grid>
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding UpdateDataFromExcel}"
+                    Key="Space">
+        </KeyBinding>
+    </UserControl.InputBindings>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=table}">
         <materialDesign:Card Height="640" Width="750"
                              FontFamily="Bookman Old Style"   
                              Grid.Row="2" Margin="25 -20 25 10"
@@ -21,7 +25,8 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto"
                           IsEnabled="True">
                 <ListView  ItemsSource="{Binding ListData}"                           
-                           Foreground="Black">
+                           Foreground="Black"
+                           x:Name="table">
                     <!--SelectedItem="{Binding SelectedItem, Mode=TwoWay}-->
                     <ListView.View>
                         <GridView >
@@ -31,13 +36,13 @@
                                 
                             </GridViewColumn>
                             <GridViewColumn Width="300"
-                                            Header="Mã JIG" 
-                                            DisplayMemberBinding="{Binding JigCode}">
+                                            Header="Mã sản phẩm" 
+                                            DisplayMemberBinding="{Binding ProductCode}">
                                 
                             </GridViewColumn>
                             <GridViewColumn Width="300" 
-                                            Header="Ngày Nhập" 
-                                            DisplayMemberBinding="{Binding DateInput}">
+                                            Header="Mã Jig" 
+                                            DisplayMemberBinding="{Binding JigCode}">
                                 
                             </GridViewColumn>                            
                         </GridView>

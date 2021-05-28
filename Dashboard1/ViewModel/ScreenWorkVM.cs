@@ -21,19 +21,37 @@ namespace Dashboard1.ViewModel
 {
     class ScreenWorkVM : BaseVM
     {
-        private double _DismissButtonProgress;
-        public double DismissButtonProgress
+        private bool _DismissButtonProgress;
+        public bool DismissButtonProgress
         {
             get => _DismissButtonProgress;
             set { _DismissButtonProgress = value; OnPropertyChanged("DismissButtonProgress"); }
         }
-       
+        private string _codeProduct;
+        public string codeProduct
+        {
+            get => _codeProduct;
+            set { _codeProduct = value; OnPropertyChanged("codeProduct"); }
+        }
+        private string _codeJig;
+        public string codeJig
+        {
+            get => _codeJig;
+            set { _codeJig = value; OnPropertyChanged("codeJig"); }
+        }
+        private string _sequenceLed;
+        public string sequenceLed
+        {
+            get => _sequenceLed;
+            set { _sequenceLed = value; OnPropertyChanged("sequenceLed"); }
+        }
         private string _QRcode;
         public string QRcode
         {
             get => _QRcode;
             set { _QRcode = value; OnPropertyChanged("QRcode"); }
         }
+        #region mess
         private string _Mess1;
         public string Mess1
         {
@@ -52,7 +70,8 @@ namespace Dashboard1.ViewModel
             get => _Mess3;
             set { _Mess3 = value; OnPropertyChanged("Mess3"); }
         }
-        public ICommand LoadDataToJig { get; set; }        
+        #endregion
+        public ICommand LoadDataToJig { get; set; }      
 
         public static SerialPort COM_Adruino;
         byte[] dataToAdruino = new byte[10];
@@ -62,21 +81,23 @@ namespace Dashboard1.ViewModel
         }
         public ScreenWorkVM()
         {
+            DismissButtonProgress = true;
+
             COM_Adruino = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
             COM_Adruino.ReadTimeout = 2000;
             COM_Adruino.WriteTimeout = 2000;
             //COM_Adruino.Open();
-            
+
+            QRcode = "H01039563 00 0002,1,4210645111D2-04,,,,,";
+            //MessageBox.Show("Hi");
             #region Command
             LoadDataToJig = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                if(COM_Adruino.IsOpen == true)
-                {
-                    COM_Adruino.Write(dataToAdruino, 0, 20);
-                    
-                }
+                DismissButtonProgress = false;
+                codeProduct = QRcode.Substring(20, 15);
+
+                #region FindJIGcode
                 Maint_mode maint_ModeWD = new Maint_mode();
-               
                 if (maint_ModeWD.DataContext == null)
                 {
                     return;
@@ -86,29 +107,78 @@ namespace Dashboard1.ViewModel
                     var maint_ModeVM = maint_ModeWD.DataContext as MaintModeVM;
                     if (maint_ModeVM.ListData != null)
                     {
-                        var List = maint_ModeVM.ListData.ToList<Jig>();                      
-                        
-                        foreach(var item in List)
-                        {
-                            var a = item.JigCode;
-                            MessageBox.Show(a.ToString());
+                        var ListJIG = maint_ModeVM.ListData.ToList<Jig>();
+
+                        foreach (var item in ListJIG)
+                        {                           
+                            if(String.Compare(codeProduct, item.ProductCode) == 0)
+                            {
+                                codeJig = item.JigCode;
+                                sequenceLed = item.sequenceLed;
+                            }
                         }
                     }
-                       
                 }
+                #endregion
 
-                //DismissButtonProgress = 20;
-                //Thread.Sleep(2000);
-                //DismissButtonProgress = 40;
-                //Thread.Sleep(2000);
-                //DismissButtonProgress = 80;
-                //Thread.Sleep(2000);
-                //DismissButtonProgress = 100;
-                //Thread.Sleep(2000);
-                //DismissButtonProgress = 00;
+                if (COM_Adruino.IsOpen == true)
+                {
+                    dataToAdruino[0] = 255;
+                    //DefineCodeProduct(QRcode);
+
+                    //COM_Adruino.Write(dataToAdruino, 0, 20);
+                    //MessageBox.Show("Hi");
+
+                }               
+               
                 QRcode = "";
+                DismissButtonProgress = true;
             });           
             #endregion            
-        }      
+        } 
+        public string DefineCodeJIG(string codeProduct, List<Jig> jigs)
+        {
+            //H01039563 00 0002,1,4210645111D2-04,,,,,
+            string codeJig = null;
+            foreach(var item in jigs)
+            {
+                var check = String.Compare(codeProduct, item.ProductCode);
+                if (check == 0)
+                    codeJig = item.JigCode;
+            }
+            return codeJig;
+        }
+        public List<int> DefineCodeProduct(string codeProduct)
+        {
+            //H01039563 00 0002,1,4210645111D2-04,,,,,            
+            List<int> ProductCodeArr = new List<int>();
+            int i = 0;
+            foreach(var ch in codeProduct)
+            {
+                int a = ch;
+                ProductCodeArr.Add(a);
+                i++;
+            }
+            return ProductCodeArr;
+        }
+        public string DefineColorOfLed(string codeProduct, List<Jig> jigs)
+        {
+            //H01039563 00 0002,1,4210645111D2-04,,,,,
+            string sequenceLed = null;
+            foreach (var item in jigs)
+            {
+                var check = String.Compare(codeProduct, item.ProductCode);
+                if (check == 0)
+                    sequenceLed = item.sequenceLed;
+            }
+            return sequenceLed;
+        }
+        public List<int> DefineColorOfLedd(string codeProduct)
+        {
+            //H01039563 00 0002,1,4210645111D2-04,,,,,
+            List<int> LedArr = new List<int>();
+
+            return LedArr;
+        }
     }
 }

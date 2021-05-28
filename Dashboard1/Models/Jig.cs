@@ -21,11 +21,17 @@ namespace Dashboard1.Models
             get => _JigCode;
             set { _JigCode = value; OnPropertyChanged("JigCode"); }
         }
-        private string _DateInput;
-        public string DateInput
+        private string _ProductCode;
+        public string ProductCode
         {
-            get => _DateInput;
-            set { _DateInput = value; OnPropertyChanged("DateInput"); }
+            get => _ProductCode;
+            set { _ProductCode = value; OnPropertyChanged("ProductCode"); }
         }
-    }
+        private string _sequenceLed;
+        public string sequenceLed
+        {
+            get => _sequenceLed;
+            set { _sequenceLed = value; OnPropertyChanged("sequenceLed"); }
+        }
+    }    
 }
