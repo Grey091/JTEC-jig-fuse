@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Dashboard1.View.Maint_mode"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dashboard1.View"
+             xmlns:vm="clr-namespace:Dashboard1.ViewModel"
+             xmlns:local1="clr-namespace:Dashboard1"
+             mc:Ignorable="d" 
+             DataContext="{StaticResource MaintModeVM}"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+             d:DesignHeight="750" d:DesignWidth="824">
+
+    <Grid>
+        <materialDesign:Card Height="640" Width="750"
+                             FontFamily="Bookman Old Style"   
+                             Grid.Row="2" Margin="25 -20 25 10"
+                             Background="White"
+                             VerticalAlignment="Stretch">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          IsEnabled="True">
+                <ListView  ItemsSource="{Binding ListData}"                           
+                           Foreground="Black">
+                    <!--SelectedItem="{Binding SelectedItem, Mode=TwoWay}-->
+                    <ListView.View>
+                        <GridView >
+                            <GridViewColumn Width="150" 
+                                            Header="Id" 
+                                            DisplayMemberBinding="{Binding ID}">
+                                
+                            </GridViewColumn>
+                            <GridViewColumn Width="300"
+                                            Header="Mã JIG" 
+                                            DisplayMemberBinding="{Binding JigCode}">
+                                
+                            </GridViewColumn>
+                            <GridViewColumn Width="300" 
+                                            Header="Ngày Nhập" 
+                                            DisplayMemberBinding="{Binding DateInput}">
+                                
+                            </GridViewColumn>                            
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+        </materialDesign:Card>
+        <Button FontSize="25"  
+                Background="#FF8522BD"
+                Command="{Binding UpdateDataFromExcel}"
+                Style="{StaticResource MaterialDesignRaisedButton}"                   
+                materialDesign:ButtonProgressAssist.Value="{Binding DismissButtonProgress}"                
+                Margin="299,650,298,10.4" Height="40" Width="227">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock><Run Text="UPDATE"/></TextBlock>
+                <materialDesign:PackIcon Margin="4 .5 0 0"
+                                         FontSize="15"
+                                         Kind="BackupRestore"
+                                         Height="35" Width="39" />
+            </StackPanel>
+        </Button>
+
+    </Grid>
+</UserControl>
