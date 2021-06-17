@@ -16,10 +16,20 @@
                     Key="Space">
         </KeyBinding>
     </UserControl.InputBindings>
-    <Grid FocusManager.FocusedElement="{Binding ElementName=table}">
-        <materialDesign:Card Height="640" Width="750"
+    <StackPanel FocusManager.FocusedElement="{Binding ElementName=table}">
+        <StackPanel Orientation="Horizontal"
+                    Margin="100 10 100 0">
+            <TextBlock Background="White" Width="500"
+                       TextWrapping="Wrap"
+                       Text="{Binding Path}"/>
+            <Button Content="Chọn File"
+                    Command="{Binding BrowseCommand}"
+                    Background="#FF8522BD"
+                    Width="100"/>
+        </StackPanel>
+        <materialDesign:Card Height="620" Width="750"
                              FontFamily="Bookman Old Style"   
-                             Grid.Row="2" Margin="25 -20 25 10"
+                             Grid.Row="2" Margin="25 5 25 05"
                              Background="White"
                              VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto"
@@ -55,7 +65,7 @@
                 Command="{Binding UpdateDataFromExcel}"
                 Style="{StaticResource MaterialDesignRaisedButton}"                   
                 materialDesign:ButtonProgressAssist.Value="{Binding DismissButtonProgress}"                
-                Margin="299,650,298,10.4" Height="40" Width="227">
+                Margin="299,0,298,10" Height="40" Width="227">
             <StackPanel Orientation="Horizontal">
                 <TextBlock><Run Text="UPDATE"/></TextBlock>
                 <materialDesign:PackIcon Margin="4 .5 0 0"
@@ -65,5 +75,5 @@
             </StackPanel>
         </Button>
 
-    </Grid>
+    </StackPanel>
 </UserControl>
